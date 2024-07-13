@@ -1,47 +1,112 @@
 const prompt = require('prompt-sync')();
+const aluno = new Object();
 
-const materias = [];
-const faltas = [];
+const alunos = [];
+const listaDeMaterias = [];
+
+let nomeAluno;
+let faltas;
+let nota;
+let qtdNotas = 0;
 let qtdMaterias = 0;
-let numeroDeFaltas = 0;
 let validaQtdMaterias = true;
-let nomeMateria
+let nomeMateria;
 let opcao;
 
-let nome = prompt('Digite o nome do aluno: ');
+
+nomeAluno = prompt('Digite o nome do aluno: ');
+aluno['nome'] = nomeAluno;
 opcao = prompt('Deseja cadastrar uma matéria para o aluno informado? 1 - Sim | 2 - Não: ');
 
 while (validaQtdMaterias) {
 
-    if (opcao == 1) {
+    switch (opcao) {
+        case '1':
 
-        nomeMateria = prompt('Informe a matéria a ser cadastrada: ');
-        materias.push(nomeMateria);
-        qtdMaterias++;
-        numeroDeFaltas = prompt('Informe a quantidade de faltas do aluno para esta matéria: ');
-        faltas.push(numeroDeFaltas);
-        opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
+            nomeMateria = prompt('Informe a matéria a ser cadastrada: ');
+            const materias = new Object();
+            const listaNotas = new Array();
+            let media = 0;
 
-    } else if (opcao == 2 && qtdMaterias < 3) {
+            aluno['materias'] = listaDeMaterias;
+            materias['nomeDaMateria'] = nomeMateria;
+            qtdMaterias++;
 
-        console.log('Você deve cadastrar no mínimo 3 matérias!');
-        nomeMateria = prompt('Informe a matéria a ser cadastrada: ');
-        materias.push(nomeMateria);
-        qtdMaterias++;
-        numeroDeFaltas = prompt('Informe a quantidade de faltas do aluno para esta matéria: ');
-        faltas.push(numeroDeFaltas);
-        opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
+            while (qtdNotas < 3) {
+                nota = +prompt(`Informe a ${qtdNotas + 1} nota: `);
+                listaNotas.push(nota);
+                qtdNotas++;
+            }
+            materias['notas'] = listaNotas;
 
-    } else if (opcao == 0 || opcao > 2) {
+            media = listaNotas.reduce((acumulador, valor) => {
+                return acumulador += valor;
+            });
 
-        console.log('Opção inválida! Digite 1 para cadastrar nova matéria ou 2 para finalizar!');
-        opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
+            materias['media'] = (media / 3).toFixed(2);
 
-    } else {
+            if (media / 3)
 
-        validaQtdMaterias = false;
+                qtdNotas = 0;
 
+            faltas = +prompt('Informe a quantidade de faltas do aluno para esta matéria: ');
+            materias['faltas'] = faltas;
+
+            listaDeMaterias.push(materias);
+
+            console.log(media);
+            console.log(media / 3);
+            opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
+
+            break;
+
+        case '2':
+
+            if (qtdMaterias < 3) {
+
+                console.log('Você deve cadastrar no mínimo 3 matérias!');
+
+                aluno['materias'] = prompt('Informe a matéria a ser cadastrada: ');
+                qtdMaterias++;
+
+                while (qtdNotas < 3) {
+                    aluno['materias']['nota'] = +prompt(`Informe a ${qtdNotas + 1} nota: `);
+                    qtdNotas++;
+                }
+                qtdNotas = 0;
+
+                aluno['faltas'] = +prompt('Informe a quantidade de faltas do aluno para esta matéria: ');
+
+                opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
+                break;
+
+            } else {
+
+                validaQtdMaterias = false;
+                break;
+
+            }
+
+
+        default:
+            console.log('Opção inválida! Digite 1 para cadastrar nova matéria ou 2 para finalizar!');
+            opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
+            break;
     }
 }
 
-console.log(materias);
+alunos.push(aluno);
+
+alunos.forEach((item, index) => {
+    console.log(`Aluno ${index + 1}:`);
+    console.log(`Nome: ${item.nome}`);
+    console.log('Matérias:');
+    item.materias.forEach((materia) => {
+        console.log(`  - Nome da Matéria: ${materia.nomeDaMateria}`);
+        console.log(`    Notas: ${materia.notas.join(', ')}`);
+        console.log(`    Media: ${materia.media}`);
+        console.log(`    Faltas: ${materia.faltas}`);
+    });
+});
+
+console.log(JSON.stringify(aluno));
