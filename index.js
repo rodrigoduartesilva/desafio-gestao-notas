@@ -44,18 +44,27 @@ while (validaQtdMaterias) {
             });
 
             materias['media'] = (media / 3).toFixed(2);
-
-            if (media / 3)
-
-                qtdNotas = 0;
+            qtdNotas = 0;
 
             faltas = +prompt('Informe a quantidade de faltas do aluno para esta matéria: ');
             materias['faltas'] = faltas;
 
+            if (media / 3 < 5 || faltas > 5) {
+                if (media / 3 < 5 && faltas < 6) {
+                    materias['statusDeAprovacao'] = 'O aluno está reprovado por média';
+                } else if (media / 3 >= 5 && faltas > 5) {
+                    materias['statusDeAprovacao'] = 'O aluno está reprovado por faltas';
+                } else {
+                    materias['statusDeAprovacao'] = 'O aluno foi reprovado por media e faltas';
+                }
+            } else if (media / 3 >= 5 && media / 3 < 7) {
+                materias['statusDeAprovacao'] = 'O aluno precisará fazer uma prova de recuperação';
+            } else {
+                materias['statusDeAprovacao'] = 'O aluno foi aprovado';
+            }
+
             listaDeMaterias.push(materias);
 
-            console.log(media);
-            console.log(media / 3);
             opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
 
             break;
@@ -106,6 +115,7 @@ alunos.forEach((item, index) => {
         console.log(`    Notas: ${materia.notas.join(', ')}`);
         console.log(`    Media: ${materia.media}`);
         console.log(`    Faltas: ${materia.faltas}`);
+        console.log(`    Status de Aprovação: ${materia.statusDeAprovacao}`);
     });
 });
 
