@@ -36,7 +36,7 @@ Desenvolver uma aplicação em JavaScript utilizando Node.js que permita a gest�
 
 ## Instalando a aplicação em seu computador
 
-Dentro do repositório você pode cloná-lo ou baixar o arquivo zip. Feito isso, execute direto o arquivo index.html ou usando liveServer no VsCode.
+Dentro do repositório você pode cloná-lo ou baixar o arquivo zip. Feito isso, execute direto o arquivo index.js.
 
 ## Clonando o repositório
 
