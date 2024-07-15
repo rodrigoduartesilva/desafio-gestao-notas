@@ -28,6 +28,7 @@ export function selecionarModoDeImpressao() {
                 break;
 
             case '3':
+                console.log('\n');
                 console.log('Aplicação finalizada!');
                 validacaoWhile = false;
                 break;

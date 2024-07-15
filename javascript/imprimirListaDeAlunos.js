@@ -1,6 +1,6 @@
 import { aluno } from "../javascript/cadastrarAluno.js";
 
-
+// Função chamada para impressão do aluno cadastrado em uma lista organizada
 export function imprimirListaDeAlunos() {
 
     console.log(`Nome: ${aluno.nome}`);

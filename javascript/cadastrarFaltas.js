@@ -1,9 +1,11 @@
 import PromptSync from 'prompt-sync';
 const prompt = PromptSync();
 
+// Função para cadastro de faltas
 export function cadastrarFaltas(materias) {
     let faltas;
 
+    // Validação de valores numericos, o loop é iniciado e só será finalizado se a entrada for apenas numeros
     while (true) {
         try {
 

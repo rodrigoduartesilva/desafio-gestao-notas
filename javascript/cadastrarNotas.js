@@ -1,12 +1,14 @@
 import PromptSync from 'prompt-sync';
 const prompt = PromptSync();
 
+// Função para cadastrar as notas
 export function cadastrarNotas(materias) {
     const listaNotas = new Array();
     let nota;
     let qtdNotas = 0;
     let media = 0;
 
+    // O loop será executado enquanto a quantidade de notas cadastradas for 3
     while (qtdNotas < 3) {
 
 
@@ -14,7 +16,7 @@ export function cadastrarNotas(materias) {
 
             nota = +prompt(`Informe a ${qtdNotas + 1}ª nota: `);
 
-            // Verifica se o valor é numérico
+            // Verifica se o valor é numérico, se sim, é executado o else, caso contrario, é exibido uma mensagem informativa
             if (isNaN(nota)) {
 
                 throw new Error('Valor em texto não é permitido. Por favor, digite um número válido.');
@@ -33,12 +35,15 @@ export function cadastrarNotas(materias) {
 
     }
 
+    // Insere as notas informadas dentro da chave 'notas' no objeto materias
     materias['notas'] = listaNotas;
 
+    // Soma as notas com o intuito de calcular a media posteriormente
     media = listaNotas.reduce((acumulador, valor) => {
         return acumulador += valor;
     });
 
+    // Insere a media dentro do objeto contendo apenas duas casas decimais
     materias['media'] = (media / 3).toFixed(2);
     qtdNotas = 0;
 

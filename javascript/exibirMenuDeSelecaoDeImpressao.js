@@ -1,3 +1,4 @@
+// Funçao chamada para exibição do menu de seleção de opções de impressão
 export function exibirMenuDeSelecaoDeImpressao() {
     console.log('\n');
     console.log('Selecione o modo de impressão desejado');
