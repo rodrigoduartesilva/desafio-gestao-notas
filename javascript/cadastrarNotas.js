@@ -12,7 +12,7 @@ export function cadastrarNotas(materias) {
 
         try {
 
-            nota = +prompt(`Informe a ${qtdNotas + 1} nota: `);
+            nota = +prompt(`Informe a ${qtdNotas + 1}ª nota: `);
 
             // Verifica se o valor é numérico
             if (isNaN(nota)) {
