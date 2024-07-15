@@ -1,17 +1,16 @@
-import PromptSync from 'prompt-sync';
 import { cadastrarMaterias, qtdMaterias } from './cadastrarMaterias.js';
+import { selecionarModoDeImpressao } from '../javascript/selecionarModoDeImpressao.js';
 
+import PromptSync from 'prompt-sync';
 const prompt = PromptSync();
 const aluno = new Object();
 const alunos = [];
 
-let nomeAluno;
-let validaQtdMaterias = true;
-let opcao;
-
-
 export function cadastrarAluno() {
-    nomeAluno = prompt('Digite o nome do aluno: ');
+    let validaQtdMaterias = true;
+    let opcao;
+
+    let nomeAluno = prompt('Digite o nome do aluno: ');
     aluno['nome'] = nomeAluno;
     opcao = prompt('Deseja cadastrar uma matéria para o aluno informado? 1 - Sim | 2 - Não: ');
 
@@ -37,6 +36,7 @@ export function cadastrarAluno() {
                 } else {
 
                     validaQtdMaterias = false;
+                    selecionarModoDeImpressao();
                     break;
 
                 }

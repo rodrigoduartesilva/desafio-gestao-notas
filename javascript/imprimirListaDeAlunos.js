@@ -1,7 +1,7 @@
-import { alunos } from "./cadastrarAluno.js";
+import { alunos } from "../javascript/cadastrarAluno.js";
 
 export function imprimirListaDeAlunos() {
-    alunos.forEach((item, index) => {
+    return alunos.forEach((item, index) => {
         console.log(`Aluno ${index + 1}:`);
         console.log(`Nome: ${item.nome}`);
         console.log('Matérias:');
