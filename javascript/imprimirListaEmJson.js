@@ -1,5 +1,5 @@
 import { aluno } from "../javascript/cadastrarAluno.js";
 
 export function imprimirListaEmJson() {
-    console.log(JSON.stringify(aluno));
+    console.log(JSON.stringify(aluno, null, 2));
 }
