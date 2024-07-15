@@ -8,10 +8,31 @@ export function cadastrarNotas(materias) {
     let media = 0;
 
     while (qtdNotas < 3) {
-        nota = +prompt(`Informe a ${qtdNotas + 1} nota: `);
-        listaNotas.push(nota);
-        qtdNotas++;
+
+
+        try {
+
+            nota = +prompt(`Informe a ${qtdNotas + 1} nota: `);
+
+            // Verifica se o valor é numérico
+            if (isNaN(nota)) {
+
+                throw new Error('Valor em texto não é permitido. Por favor, digite um número válido.');
+
+            } else {
+
+                listaNotas.push(nota);
+                qtdNotas++;
+
+            }
+
+        } catch (error) {
+            // Captura e exibe o erro
+            console.error(error.message);
+        }
+
     }
+
     materias['notas'] = listaNotas;
 
     media = listaNotas.reduce((acumulador, valor) => {

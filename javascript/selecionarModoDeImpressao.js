@@ -10,7 +10,7 @@ export function selecionarModoDeImpressao() {
     console.log('Selecione o modo de impressão desejado');
     console.log('\n');
     console.log('Digite 1 - Imprimir a lista de alunos');
-    console.log('Digite 2 - Imprimir em format Json');
+    console.log('Digite 2 - Imprimir em formato Json');
     console.log('\n');
 
     let opcao = prompt('Selecione a opção desejada: ');

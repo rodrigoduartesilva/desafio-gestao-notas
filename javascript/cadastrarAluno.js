@@ -3,6 +3,7 @@ import { selecionarModoDeImpressao } from '../javascript/selecionarModoDeImpress
 
 import PromptSync from 'prompt-sync';
 const prompt = PromptSync();
+
 const aluno = new Object();
 const alunos = [];
 
@@ -10,44 +11,59 @@ export function cadastrarAluno() {
     let validaQtdMaterias = true;
     let opcao;
 
-    let nomeAluno = prompt('Digite o nome do aluno: ');
-    aluno['nome'] = nomeAluno;
-    opcao = prompt('Deseja cadastrar uma matéria para o aluno informado? 1 - Sim | 2 - Não: ');
+    try {
+        let nomeAluno = prompt('Digite o nome do aluno: ');
 
-    while (validaQtdMaterias) {
+        // Verifica se o valor é numérico -> Caso seja um número, a aplicação irá direto para o catch e será finalizada.
+        if (!isNaN(nomeAluno)) {
 
-        switch (opcao) {
-            case '1':
+            throw new Error('Valor numérico não é permitido. Por favor, digite um nome válido.');
 
-                cadastrarMaterias();
-                opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
-                break;
+        } else {
 
-            case '2':
+            aluno['nome'] = nomeAluno;
+            opcao = prompt('Deseja cadastrar uma matéria para o aluno informado? 1 - Sim | 2 - Não: ');
 
-                if (qtdMaterias < 3) {
+            while (validaQtdMaterias) {
 
-                    console.log('Você deve cadastrar no mínimo 3 matérias!');
+                switch (opcao) {
+                    case '1':
 
-                    cadastrarMaterias();
-                    opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
-                    break;
+                        cadastrarMaterias();
+                        opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
+                        break;
 
-                } else {
+                    case '2':
 
-                    validaQtdMaterias = false;
-                    selecionarModoDeImpressao();
-                    break;
+                        if (qtdMaterias < 3) {
+
+                            console.log('Você deve cadastrar no mínimo 3 matérias!');
+
+                            cadastrarMaterias();
+                            opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
+                            break;
+
+                        } else {
+
+                            validaQtdMaterias = false;
+                            selecionarModoDeImpressao();
+                            break;
+
+                        }
+
+                    default:
+
+                        console.log('Opção inválida! Digite 1 para cadastrar nova matéria ou 2 para finalizar!');
+                        opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
+                        break;
 
                 }
-
-            default:
-
-                console.log('Opção inválida! Digite 1 para cadastrar nova matéria ou 2 para finalizar!');
-                opcao = prompt('Deseja cadastrar outra matéria? 1 - Sim | 2 - Não: ');
-                break;
-
+            }
         }
+
+    } catch (error) {
+        // Captura e exibe o erro
+        console.error(error.message);
     }
 
     return alunos.push(aluno);

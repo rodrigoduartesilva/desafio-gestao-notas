@@ -10,32 +10,53 @@ let qtdMaterias = 0;
 let nomeMateria;
 
 export function cadastrarMaterias() {
-    nomeMateria = prompt('Informe a matéria a ser cadastrada: ');
-    const materias = new Object();
 
-    aluno['materias'] = listaDeMaterias;
-    materias['nomeDaMateria'] = nomeMateria;
-    qtdMaterias++;
 
-    let media = cadastrarNotas(materias);
+    try {
 
-    let faltas = cadastrarFaltas(materias);
+        nomeMateria = prompt('Informe a matéria a ser cadastrada: ');
 
-    if (media < 5 || faltas > 5) {
-        if (media < 5 && faltas < 6) {
-            materias['statusDeAprovacao'] = 'O aluno está reprovado por média';
-        } else if (media >= 5 && faltas > 5) {
-            materias['statusDeAprovacao'] = 'O aluno está reprovado por faltas';
+        // Verifica se o valor é numérico
+        if (!isNaN(nomeMateria)) {
+
+            throw new Error('Valor numérico não é permitido. Por favor, digite um nome válido.');
+
         } else {
-            materias['statusDeAprovacao'] = 'O aluno foi reprovado por media e faltas';
+
+            const materias = new Object();
+
+            aluno['materias'] = listaDeMaterias;
+            materias['nomeDaMateria'] = nomeMateria;
+            qtdMaterias++;
+
+            let media = cadastrarNotas(materias);
+
+            let faltas = cadastrarFaltas(materias);
+
+            if (media < 5 || faltas > 5) {
+                if (media < 5 && faltas < 6) {
+                    materias['statusDeAprovacao'] = 'O aluno está reprovado por média';
+                } else if (media >= 5 && faltas > 5) {
+                    materias['statusDeAprovacao'] = 'O aluno está reprovado por faltas';
+                } else {
+                    materias['statusDeAprovacao'] = 'O aluno foi reprovado por media e faltas';
+                }
+            } else if (media >= 5 && media < 7) {
+                materias['statusDeAprovacao'] = 'O aluno precisará fazer uma prova de recuperação';
+            } else {
+                materias['statusDeAprovacao'] = 'O aluno foi aprovado';
+            }
+
+            listaDeMaterias.push(materias);
+
         }
-    } else if (media >= 5 && media < 7) {
-        materias['statusDeAprovacao'] = 'O aluno precisará fazer uma prova de recuperação';
-    } else {
-        materias['statusDeAprovacao'] = 'O aluno foi aprovado';
+
+
+    } catch (error) {
+        // Captura e exibe o erro
+        console.error(error.message);
     }
 
-    listaDeMaterias.push(materias);
 }
 
 export { qtdMaterias };
