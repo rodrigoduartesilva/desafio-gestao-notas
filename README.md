@@ -58,10 +58,16 @@ cd desafio-gestao-notas
 code .
 ```
 
-4. Instale a dependência prompt-sync para proporcionar ao usuário uma interação do usuário.
+4. Instale a dependência prompt-sync para proporcionar ao usuário uma interação via teclado.
 
 ```bash
 npm i prompt-sync
+```
+
+5. Execute a aplicação usando o comando:
+
+```bash
+node index.js
 ```
 
 ### Autor: Rodrigo Duarte
